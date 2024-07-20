@@ -3,8 +3,7 @@ import aiohttp
 import asyncio
 import streamlit as st
 from datetime import datetime
-from lightweight_charts import Chart
-
+from lightweight_charts.widgets import StreamlitChart
 # URL de la API
 API_URL = 'http://104.46.208.49:8000/api/klines/binance'
 
@@ -51,7 +50,7 @@ def plot_chart(symbol, timeframe):
     df = pd.DataFrame(data)
     
     # Mostrar gráfico
-    chart = Chart(toolbox=True)
+    chart = StreamlitChart(width=900, height=600)
     chart.legend(visible=True)
     chart.set(df)
     
