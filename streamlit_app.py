@@ -55,7 +55,7 @@ def plot_chart(symbol, timeframe):
     chart.legend(visible=True)
     chart.set(df)
     
-    st.pyplot(chart.plot())
+    chart.load()
 
 # Interfaz de usuario
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
