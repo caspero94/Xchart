@@ -32,9 +32,6 @@ url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&
 data = asyncio.run(fetch_data(url))
 transformed_data = transform_data(data)
 
-st.write("Datos Originales:")
-st.write(data)
-
 st.write("Datos Transformados:")
 st.write(transformed_data)
 
