@@ -59,7 +59,7 @@ st.write(datase)
 st.write(transformed_data)
 seriesCandlestickChart = [{
     "type": 'Candlestick',
-    "data": datase,
+    "data": transformed_data,
     "options": {
         "upColor": '#26a69a',
         "downColor": '#ef5350',
