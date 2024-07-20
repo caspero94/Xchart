@@ -1,13 +1,19 @@
 import pandas as pd
-import asyncio
 import aiohttp
+import asyncio
 import streamlit as st
-from lightweight_charts.widgets import StreamlitChart
+from datetime import datetime
+from lightweight_charts import Chart
 
-# Configuración del gráfico
-chart = StreamlitChart(width=1200, height=1200)
+# URL de la API
+API_URL = 'http://104.46.208.49:8000/api/klines/binance'
 
-async def fetch_data(url):
+# Configuración de Streamlit
+st.title("Candlestick Chart from API")
+
+# Obtener datos de la API
+async def fetch_data(symbol, timeframe, limit=1000):
+    url = f"{API_URL}?ticker={symbol}&timeframe={timeframe}&limit={limit}"
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             if response.status == 200:
@@ -15,28 +21,47 @@ async def fetch_data(url):
             else:
                 response.raise_for_status()
 
-async def load_data(url):
-    data = await fetch_data(url)
-    data['open_time'] = await pd.to_datetime(data['open_time'], unit='ms')
-    return data
+def transform_data(data):
+    transformed = []
+    for entry in data:
+        transformed_entry = {
+            "open": float(entry["open"]),
+            "high": float(entry["high"]),
+            "low": float(entry["low"]),
+            "close": float(entry["close"]),
+            "time": int(entry["open_time"] / 1000)  # Convert milliseconds to seconds
+        }
+        transformed.append(transformed_entry)
+    return transformed
 
-def main():
-    st.title("Candlestick Chart from API")
+def get_data(symbol, timeframe):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    data = loop.run_until_complete(fetch_data(symbol, timeframe))
+    return transform_data(data)
 
-    url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=10'
+# Configuración del gráfico
+def plot_chart(symbol, timeframe):
+    data = get_data(symbol, timeframe)
+    if not data:
+        st.write(f"No data available for {symbol} with timeframe {timeframe}.")
+        return
 
-    # Mostrar un mensaje de carga mientras se obtienen los datos
-    st.write("Cargando datos...")
-
-    # Cargar datos de forma asíncrona
-    transformed_data = asyncio.run(load_data(url))
-
-    # Convertir los datos a un DataFrame de pandas
-    df = pd.DataFrame(transformed_data)
-
-    # Configurar y cargar el gráfico
+    # Convertir a DataFrame
+    df = pd.DataFrame(data)
+    
+    # Mostrar gráfico
+    chart = Chart(toolbox=True)
+    chart.legend(visible=True)
     chart.set(df)
-    chart.load()
+    
+    st.pyplot(chart.plot())
 
-if __name__ == "__main__":
-    main()
+# Interfaz de usuario
+symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
+timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d"]
+
+selected_symbol = st.selectbox("Select Ticker", symbols)
+selected_timeframe = st.selectbox("Select Timeframe", timeframes)
+
+plot_chart(selected_symbol, selected_timeframe)
