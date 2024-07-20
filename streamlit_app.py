@@ -15,22 +15,9 @@ async def fetch_data(url):
             else:
                 response.raise_for_status()
 
-def transform_data(data):
-    transformed = []
-    for entry in data:
-        transformed_entry = {
-            "open": float(entry["open"]),
-            "high": float(entry["high"]),
-            "low": float(entry["low"]),
-            "close": float(entry["close"]),
-            "time": int(entry["open_time"] / 1000)  # Convert milliseconds to seconds
-        }
-        transformed.append(transformed_entry)
-    return transformed
-
 async def load_data(url):
     data = await fetch_data(url)
-    transformed_data = transform_data(data)
+    data['open_time'] = pd.to_datetime(data['open_time'], unit='ms')
     return data
 
 def main():
