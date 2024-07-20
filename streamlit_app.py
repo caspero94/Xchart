@@ -32,8 +32,7 @@ url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&
 data = asyncio.run(fetch_data(url))
 transformed_data = transform_data(data)
 
-st.write("Datos Transformados:")
-st.write(transformed_data)
+st.write("COMPRO TRANSFORMED")
 for entry in transformed_data:
     st.write(f"Types: open={type(entry['open'])}, high={type(entry['high'])}, low={type(entry['low'])}, close={type(entry['close'])}, time={type(entry['time'])}")
 
@@ -49,6 +48,7 @@ datase = [
         { "open": 10.75, "high": 11.60, "low": 10.49, "close": 10.93, "time": 1643119076 },
         { "open": 10.93, "high": 11.53, "low": 10.76, "close": 10.96, "time": 1643205476 }
     ]
+st.write("COMPROBADNO DATASE")
 for entry in datase:
     st.write(f"Types: open={type(entry['open'])}, high={type(entry['high'])}, low={type(entry['low'])}, close={type(entry['close'])}, time={type(entry['time'])}")
 # Configuración del gráfico
