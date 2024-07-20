@@ -13,7 +13,7 @@ API_URL = 'http://104.46.208.49:8000/api/klines/'
 st.title("Candlestick Chart from API")
 
 # Obtener datos de la API
-async def fetch_data(exchange, symbol, timeframe, limit=100):
+async def fetch_data(exchange, symbol, timeframe, limit=1000):
     url = f"{API_URL}{exchange}?ticker={symbol}&timeframe={timeframe}&limit={limit}"
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -61,5 +61,5 @@ selected_timeframe = st.selectbox("Select Timeframe", timeframes)
 st.write("Updating every 10 seconds...")
 while True:
     plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe)
-    time.sleep(10)  # Espera de 10 segundos antes de volver a ejecutar
+    time.sleep(15)  # Espera de 10 segundos antes de volver a ejecutar
     st.experimental_rerun()  # Vuelve a ejecutar el script para refrescar el gráfico
