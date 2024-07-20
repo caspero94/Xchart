@@ -1,14 +1,16 @@
 import streamlit as st
 import json
-import requests
+import aiohttp
+import asyncio
 from streamlit_lightweight_charts import renderLightweightCharts
 
-def fetch_data(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        response.raise_for_status()
+async def fetch_data(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                return await response.json()
+            else:
+                response.raise_for_status()
 
 def transform_data(data):
     transformed = []
@@ -26,39 +28,46 @@ def transform_data(data):
 # URL de la API
 url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=5'
 
-# Cargar datos
-st.write("Cargando datos...")
-data = fetch_data(url)
-transformed_data = transform_data(data)
+async def main():
+    st.write("Cargando datos...")
 
-# Configurar gráfico
-chartOptions = {
-    "layout": {
-        "textColor": 'black',
-        "background": {
-            "type": 'solid',
-            "color": 'white'
+    # Obtener datos de la API
+    data = await fetch_data(url)
+    
+    # Transformar los datos
+    transformed_data = transform_data(data)
+
+    # Configurar gráfico
+    chartOptions = {
+        "layout": {
+            "textColor": 'black',
+            "background": {
+                "type": 'solid',
+                "color": 'white'
+            }
         }
     }
-}
 
-seriesCandlestickChart = [{
-    "type": 'Candlestick',
-    "data": transformed_data,
-    "options": {
-        "upColor": '#26a69a',
-        "downColor": '#ef5350',
-        "borderVisible": False,
-        "wickUpColor": '#26a69a',
-        "wickDownColor": '#ef5350'
-    }
-}]
+    seriesCandlestickChart = [{
+        "type": 'Candlestick',
+        "data": transformed_data,
+        "options": {
+            "upColor": '#26a69a',
+            "downColor": '#ef5350',
+            "borderVisible": False,
+            "wickUpColor": '#26a69a',
+            "wickDownColor": '#ef5350'
+        }
+    }]
 
-st.subheader("Candlestick Chart with Watermark")
+    st.subheader("Candlestick Chart with Watermark")
 
-renderLightweightCharts([
-    {
-        "chart": chartOptions,
-        "series": seriesCandlestickChart
-    }
-], 'candlestick')
+    renderLightweightCharts([
+        {
+            "chart": chartOptions,
+            "series": seriesCandlestickChart
+        }
+    ], 'candlestick')
+
+if __name__ == "__main__":
+    asyncio.run(main())
