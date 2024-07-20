@@ -68,5 +68,5 @@ with col_timeframe:
 
 while True:
     plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe)
-    time.sleep(5)  # Espera de 10 segundos antes de volver a ejecutar
+    time.sleep(30)  # Espera de 10 segundos antes de volver a ejecutar
     st.rerun()  # Vuelve a ejecutar el script para refrescar el gráfico
