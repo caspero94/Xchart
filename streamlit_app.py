@@ -47,7 +47,7 @@ def plot_chart(exchange ,symbol, timeframe):
     
     with st.container(height=1000, border=True):
         # Mostrar gráfico
-        chart = StreamlitChart(height=600)
+        chart = StreamlitChart()
         chart.legend(visible=True)
         chart.set(df)
         chart.load()
@@ -59,14 +59,12 @@ exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d"]
 with col_exchange:
-    selected_exchange = st.selectbox("Select Exchange", exchange)
+    selected_exchange = st.selectbox(exchange)
 with col_symbol:
-    selected_symbol = st.selectbox("Select Ticker", symbols)
+    selected_symbol = st.selectbox(symbols)
 with col_timeframe:
-    selected_timeframe = st.selectbox("Select Timeframe", timeframes)
+    selected_timeframe = st.selectbox(timeframes)
 
-# Actualización del gráfico cada 10 segundos
-st.write("Updating every 10 seconds...")
 while True:
     plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe)
     time.sleep(15)  # Espera de 10 segundos antes de volver a ejecutar
