@@ -50,7 +50,8 @@ def plot_chart(symbol, timeframe):
     df = pd.DataFrame(data)
     
 
-    #df['open_time'] = pd.to_datetime(df['open_time'], unit='ms')
+    df['open_time'] = pd.to_datetime(df['open_time'], unit='ms')
+    df['open_time'] = df['open_time'].astype(int) // 10**6
     df.rename(columns={'open_time': 'date'}, inplace=True)
     df.drop(columns=['close_time', 'base_asset_volume','number_of_trades','taker_buy_volume','taker_buy_base_asset_volume'], inplace=True)
     df.set_index('date', inplace=True)
