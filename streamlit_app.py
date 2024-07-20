@@ -30,9 +30,7 @@ url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&
 
 # Función para cargar datos y renderizar el gráfico
 def load_and_render_chart():
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    data = loop.run_until_complete(fetch_data(url))
+    data = asyncio.run(fetch_data(url))
     transformed_data = transform_data(data)
 
     chartOptions = {
