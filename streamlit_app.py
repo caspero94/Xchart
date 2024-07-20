@@ -2,9 +2,6 @@ import streamlit as st
 import json
 import requests
 from streamlit_lightweight_charts import renderLightweightCharts
-from abc import ABC, abstractmethod
-import datetime
-
 
 def fetch_data(url):
     response = requests.get(url)
@@ -26,20 +23,15 @@ def transform_data(data):
         transformed.append(transformed_entry)
     return transformed
 
-def save_json(data, filename):
-    with open(filename, 'w') as f:
-        json.dump(data, f, indent=4)
-
 # URL de la API
 url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=5'
 
-# Obtener los datos de la API
+# Cargar datos
+st.write("Cargando datos...")
 data = fetch_data(url)
-
-# Transformar los datos
 transformed_data = transform_data(data)
 
-
+# Configurar gráfico
 chartOptions = {
     "layout": {
         "textColor": 'black',
