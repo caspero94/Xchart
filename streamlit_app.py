@@ -51,11 +51,10 @@ def plot_chart(symbol, timeframe):
     
 
     df['open_time'] = pd.to_datetime(df['open_time'], unit="ms")
-    df.rename(columns={'open_time': 'date'}, inplace=True)
-    df.drop(columns=['close_time', 'base_asset_volume','number_of_trades','taker_buy_volume','taker_buy_base_asset_volume'], inplace=True)
+    #df.rename(columns={'open_time': 'date'}, inplace=True)
+    #df.drop(columns=['close_time', 'base_asset_volume','number_of_trades','taker_buy_volume','taker_buy_base_asset_volume'], inplace=True)
     df = df.iloc[::-1].reset_index(drop=True)
     #df.set_index('open_time', inplace=True)
-    st.write(df)
 
     # Mostrar gráfico
     chart = StreamlitChart(width=900, height=600)
