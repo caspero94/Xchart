@@ -35,7 +35,7 @@ def load_and_render_chart():
     transformed_data = transform_data(data)
 
     # Verifica los datos transformados
-    st.write("Datos transformados:", json.dumps(transformed_data[:5], indent=2))
+    st.write("Datos transformados:", json.dumps(transformed_data[:10], indent=2))
 
     chartOptions = {
         "width": 600,
