@@ -2,8 +2,8 @@ import pandas as pd
 import aiohttp
 import asyncio
 import streamlit as st
+from datetime import datetime
 from lightweight_charts.widgets import StreamlitChart
-
 # URL de la API
 API_URL = 'http://104.46.208.49:8000/api/klines/binance'
 
@@ -28,7 +28,7 @@ def transform_data(data):
             "high": float(entry["high"]),
             "low": float(entry["low"]),
             "close": float(entry["close"]),
-            "open_time": pd.to_datetime(entry["open_time"], unit='ms')  # Convert milliseconds to timestamp
+            "time": pd.to_datetime(entry["open_time"], unit='ms')  # Convert milliseconds to seconds
         }
         transformed.append(transformed_entry)
     return transformed
@@ -48,7 +48,6 @@ def plot_chart(symbol, timeframe):
 
     # Convertir a DataFrame
     df = pd.DataFrame(data)
-    df.set_index('open_time', inplace=True)  # Establecer 'open_time' como índice
     
     # Mostrar gráfico
     chart = StreamlitChart(width=900, height=600)
