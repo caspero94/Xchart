@@ -77,7 +77,7 @@ def load_and_render_chart():
 
     seriesCandlestickChart = [{
         "type": 'Candlestick',
-        "data": transformed_data,
+        "data":  [ { "open": 179.83, "high": 179.9, "low": 179.77, "close": 179.81, "time": 1568158800 }, { "open": 179.7, "high": 179.85, "low": 179.6, "close": 179.84, "time": 1568158740 }, { "open": 179.56, "high": 179.73, "low": 179.51, "close": 179.73, "time": 1568158680 }, { "open": 179.59, "high": 179.59, "low": 179.52, "close": 179.56, "time": 1568158620 }, { "open": 179.63, "high": 179.64, "low": 179.51, "close": 179.6, "time": 1568158560 }, { "open": 179.64, "high": 179.65, "low": 179.62, "close": 179.63, "time": 1568158500 }, { "open": 179.74, "high": 179.74, "low": 179.62, "close": 179.64, "time": 1568158440 }, { "open": 179.77, "high": 179.85, "low": 179.72, "close": 179.74, "time": 1568158380 }, { "open": 179.89, "high": 179.89, "low": 179.71, "close": 179.77, "time": 1568158320 }, { "open": 179.88, "high": 179.9, "low": 179.77, "close": 179.9, "time": 1568158260 } ],
         "options": {
             "upColor": COLOR_BULL,
             "downColor": COLOR_BEAR,
