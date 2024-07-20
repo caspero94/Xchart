@@ -48,10 +48,11 @@ def plot_chart(symbol, timeframe):
 
     # Convertir a DataFrame
     df = pd.DataFrame(data)
-    st.write(df)
-    df['open_time'] = pd.to_datetime(df['open_time'], unit='ms')
-    #df.set_index('open_time', inplace=True)
     
+    df['open_time'] = pd.to_datetime(df['open_time'], unit='ms')
+    st.write(df)
+    df.set_index('open_time', inplace=True)
+    st.write(df)
     # Mostrar gráfico
     chart = StreamlitChart(width=900, height=600)
     chart.legend(visible=True)
