@@ -37,7 +37,7 @@ def get_data(symbol, timeframe):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     data = loop.run_until_complete(fetch_data(symbol, timeframe))
-    return transform_data(data)
+    return data
 
 # Configuración del gráfico
 def plot_chart(symbol, timeframe):
