@@ -10,6 +10,7 @@ import time
 API_URL = 'http://104.46.208.49:8000/api/klines/'
 
 # Configuración de Streamlit
+st.set_page_config(layout="wide")
 st.title("Candlestick Chart from API")
 
 # Obtener datos de la API
