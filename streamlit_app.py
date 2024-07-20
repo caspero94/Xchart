@@ -58,9 +58,9 @@ selected_exchange, selected_symbol, selected_timeframe = st.columns(3, vertical_
 exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d"]
-selected_exchange = st.selectbox("Select Exchange", exchange)
-selected_symbol = st.selectbox("Select Ticker", symbols)
-selected_timeframe = st.selectbox("Select Timeframe", timeframes)
+selected_exchange.st.selectbox("Select Exchange", exchange)
+selected_symbol.st.selectbox("Select Ticker", symbols)
+selected_timeframe.st.selectbox("Select Timeframe", timeframes)
 
 # Actualización del gráfico cada 10 segundos
 st.write("Updating every 10 seconds...")
