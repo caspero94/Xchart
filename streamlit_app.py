@@ -20,7 +20,7 @@ async def fetch_data(exchange, symbol, timeframe, limit=1000):
             else:
                 response.raise_for_status()
 
-def get_data(symbol, timeframe):
+def get_data(exchange, symbol, timeframe):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     data = loop.run_until_complete(fetch_data(exchange, symbol, timeframe))
