@@ -27,45 +27,56 @@ def transform_data(data):
         transformed.append(transformed_entry)
     return transformed
 
+# Función asíncrona para cargar datos y renderizar el gráfico
+async def load_and_render_chart(url):
+    data = await fetch_data(url)
+    transformed_data = transform_data(data)
+    return transformed_data
+
+# URL de la API
 url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=10'
 
-data = asyncio.run(fetch_data(url))
-transformed_data = transform_data(data)
+# Cargar datos y mostrar el gráfico
+def main():
+    st.title("Candlestick Chart")
 
-st.write("Datos Originales:")
-st.write(data)
+    # Mostrar un mensaje de carga mientras se obtienen los datos
+    st.write("Cargando datos...")
 
-st.write("Datos Transformados:")
-st.write(transformed_data)
+    # Ejecutar la función asíncrona
+    transformed_data = asyncio.run(load_and_render_chart(url))
 
-# Configuración del gráfico
-chartOptions = {
-    "layout": {
-        "textColor": 'black',
-        "background": {
-            "type": 'solid',
-            "color": 'white'
+    # Configuración del gráfico
+    chartOptions = {
+        "layout": {
+            "textColor": 'black',
+            "background": {
+                "type": 'solid',
+                "color": 'white'
+            }
         }
     }
-}
 
-seriesCandlestickChart = [{
-    "type": 'Candlestick',
-    "data": transformed_data,
-    "options": {
-        "upColor": COLOR_BULL,
-        "downColor": COLOR_BEAR,
-        "borderVisible": False,
-        "wickUpColor": COLOR_BULL,
-        "wickDownColor": COLOR_BEAR
-    }
-}]
+    seriesCandlestickChart = [{
+        "type": 'Candlestick',
+        "data": transformed_data,
+        "options": {
+            "upColor": COLOR_BULL,
+            "downColor": COLOR_BEAR,
+            "borderVisible": False,
+            "wickUpColor": COLOR_BULL,
+            "wickDownColor": COLOR_BEAR
+        }
+    }]
 
-st.subheader("Candlestick Chart with Transformed Data")
+    st.subheader("Candlestick Chart with Transformed Data")
 
-renderLightweightCharts([
-    {
-        "chart": chartOptions,
-        "series": seriesCandlestickChart
-    }
-], 'candlestick')
+    renderLightweightCharts([
+        {
+            "chart": chartOptions,
+            "series": seriesCandlestickChart
+        }
+    ], 'candlestick')
+
+if __name__ == "__main__":
+    main()
