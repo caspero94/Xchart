@@ -28,16 +28,22 @@ def transform_data(data):
 # URL de la API
 url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=5'
 
+# Función principal asincrónica
 async def main():
     st.write("Cargando datos...")
-
+    
     # Obtener datos de la API
     data = await fetch_data(url)
     
     # Transformar los datos
     transformed_data = transform_data(data)
+    
+    return transformed_data
 
-    # Configurar gráfico
+# Usar streamlit experimental_async
+async def async_render_chart():
+    transformed_data = await main()
+
     chartOptions = {
         "layout": {
             "textColor": 'black',
@@ -69,5 +75,8 @@ async def main():
         }
     ], 'candlestick')
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# Ejecutar la función asincrónica en Streamlit
+if st.experimental_is_async():
+    st.experimental_async(async_render_chart)
+else:
+    asyncio.run(async_render_chart())
