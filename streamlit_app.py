@@ -24,11 +24,11 @@ def transform_data(data):
     transformed = []
     for entry in data:
         transformed_entry = {
+            "time": int(entry["open_time"] / 1000),
             "open": float(entry["open"]),
             "high": float(entry["high"]),
             "low": float(entry["low"]),
             "close": float(entry["close"]),
-            "open_time": pd.to_datetime(entry["open_time"], unit='ms')  # Convert milliseconds to seconds
         }
         transformed.append(transformed_entry)
     return transformed
