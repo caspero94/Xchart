@@ -7,7 +7,6 @@ from streamlit_lightweight_charts import renderLightweightCharts
 COLOR_BULL = 'rgba(38,166,154,0.9)'  # #26a69a
 COLOR_BEAR = 'rgba(239,83,80,0.9)'   # #ef5350
 
-# Función asincrónica para obtener los datos
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -33,9 +32,14 @@ def transform_data(data):
 url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=500'
 
 def load_and_render_chart():
+    # Ejecutar el bucle de eventos asincrónicos
     data = asyncio.run(fetch_data(url))
     transformed_data = transform_data(data)
 
+    # Verifica los datos transformados
+    st.write("Datos transformados:", transformed_data[:5])  # Muestra las primeras 5 entradas para depuración
+
+    # Configuración del gráfico
     chartOptions = {
         "width": 600,
         "height": 400,
@@ -89,6 +93,8 @@ def load_and_render_chart():
     ]
 
     st.subheader("Candlestick Chart with Watermark")
+    
+    # Renderizar el gráfico
     renderLightweightCharts([
         {
             "chart": chartOptions,
