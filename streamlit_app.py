@@ -49,7 +49,7 @@ def plot_chart(exchange ,symbol, timeframe):
         # Mostrar gráfico
     chart = StreamlitChart(height=1000)
     chart.legend(visible=True)
-    chart.volume_config(0.2)
+    chart.volume_config(0.05)
     chart.set(df)
     chart.load()
 
@@ -69,4 +69,4 @@ with col_timeframe:
 while True:
     plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe)
     time.sleep(15)  # Espera de 10 segundos antes de volver a ejecutar
-    st.experimental_rerun()  # Vuelve a ejecutar el script para refrescar el gráfico
+    st.rerun()  # Vuelve a ejecutar el script para refrescar el gráfico
