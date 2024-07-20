@@ -44,7 +44,7 @@ def plot_chart(exchange ,symbol, timeframe):
     df.set_index('open_time', inplace=True)
 
     # Mostrar gráfico
-    chart = StreamlitChart()
+    chart = StreamlitChart(height="700")
     chart.legend(visible=True)
     chart.set(df)
     
