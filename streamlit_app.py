@@ -30,76 +30,48 @@ def transform_data(data):
 
 url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=500'
 
-def load_and_render_chart():
-    data = asyncio.run(fetch_data(url))
-    transformed_data = transform_data(data)
 
-    # Verifica los datos transformados
-    st.write("Datos transformados:", json.dumps(transformed_data[:10], indent=2))
+data = asyncio.run(fetch_data(url))
+transformed_data = transform_data(data)
 
-    chartOptions = {
-        "width": 600,
-        "height": 400,
-        "layout": {
-            "background": {
-                "type": "solid",
-                "color": 'white'
-            },
-            "textColor": "black"
-        },
-        "grid": {
-            "vertLines": {
-                "color": "rgba(197, 203, 206, 0.5)"
-            },
-            "horzLines": {
-                "color": "rgba(197, 203, 206, 0.5)"
-            }
-        },
-        "crosshair": {
-            "mode": 0
-        },
-        "priceScale": {
-            "borderColor": "rgba(197, 203, 206, 0.8)"
-        },
-        "timeScale": {
-            "borderColor": "rgba(197, 203, 206, 0.8)",
-            "barSpacing": 15
-        },
-        "watermark": {
-            "visible": True,
-            "fontSize": 48,
-            "horzAlign": 'center',
-            "vertAlign": 'center',
-            "color": 'rgba(171, 71, 188, 0.3)',
-            "text": 'ETHUSDT - 1m'
+chartOptions = {
+    "layout": {
+        "textColor": 'black',
+        "background": {
+            "type": 'solid',
+            "color": 'white'
         }
     }
+}
 
-    seriesCandlestickChart = [{
-        "type": 'Candlestick',
-        "data":  [ { "open": 179.83, "high": 179.9, "low": 179.77, "close": 179.81, "time": 1568158800 }, { "open": 179.7, "high": 179.85, "low": 179.6, "close": 179.84, "time": 1568158740 }, { "open": 179.56, "high": 179.73, "low": 179.51, "close": 179.73, "time": 1568158680 }, { "open": 179.59, "high": 179.59, "low": 179.52, "close": 179.56, "time": 1568158620 }, { "open": 179.63, "high": 179.64, "low": 179.51, "close": 179.6, "time": 1568158560 }, { "open": 179.64, "high": 179.65, "low": 179.62, "close": 179.63, "time": 1568158500 }, { "open": 179.74, "high": 179.74, "low": 179.62, "close": 179.64, "time": 1568158440 }, { "open": 179.77, "high": 179.85, "low": 179.72, "close": 179.74, "time": 1568158380 }, { "open": 179.89, "high": 179.89, "low": 179.71, "close": 179.77, "time": 1568158320 }, { "open": 179.88, "high": 179.9, "low": 179.77, "close": 179.9, "time": 1568158260 } ],
-        "options": {
-            "upColor": COLOR_BULL,
-            "downColor": COLOR_BEAR,
-            "borderVisible": False,
-            "wickUpColor": COLOR_BULL,
-            "wickDownColor": COLOR_BEAR
-        }
-    }]
+seriesCandlestickChart = [{
+    "type": 'Candlestick',
+    "data": [
+        { "open": 10, "high": 10.63, "low": 9.49, "close": 9.55, "time": 1642427876 },
+        { "open": 9.55, "high": 10.30, "low": 9.42, "close": 9.94, "time": 1642514276 },
+        { "open": 9.94, "high": 10.17, "low": 9.92, "close": 9.78, "time": 1642600676 },
+        { "open": 9.78, "high": 10.59, "low": 9.18, "close": 9.51, "time": 1642687076 },
+        { "open": 9.51, "high": 10.46, "low": 9.10, "close": 10.17, "time": 1642773476 },
+        { "open": 10.17, "high": 10.96, "low": 10.16, "close": 10.47, "time": 1642859876 },
+        { "open": 10.47, "high": 11.39, "low": 10.40, "close": 10.81, "time": 1642946276 },
+        { "open": 10.81, "high": 11.60, "low": 10.30, "close": 10.75, "time": 1643032676 },
+        { "open": 10.75, "high": 11.60, "low": 10.49, "close": 10.93, "time": 1643119076 },
+        { "open": 10.93, "high": 11.53, "low": 10.76, "close": 10.96, "time": 1643205476 }
+    ],
+    "options": {
+        "upColor": '#26a69a',
+        "downColor": '#ef5350',
+        "borderVisible": False,
+        "wickUpColor": '#26a69a',
+        "wickDownColor": '#ef5350'
+    }
+}]
 
-    st.subheader("Candlestick Chart with Watermark")
-    
-    # Renderizar el gráfico
-    try:
-        renderLightweightCharts([
-            {
-                "chart": chartOptions,
-                "series": seriesCandlestickChart
-            }
-        ], 'candlestick')
-    except Exception as e:
-        st.error(f"Error al renderizar el gráfico: {e}")
+st.subheader("Candlestick Chart with Watermark")
 
-# Ejecutar la carga y renderización
-st.write("Cargando datos...")
-load_and_render_chart()
+renderLightweightCharts([
+    {
+        "chart": chartOptions,
+        "series": seriesCandlestickChart
+    }
+], 'candlestick')
