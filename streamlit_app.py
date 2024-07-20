@@ -5,7 +5,7 @@ import streamlit as st
 from lightweight_charts.widgets import StreamlitChart
 
 # Configuración del gráfico
-chart = StreamlitChart(width=900, height=600)
+chart = StreamlitChart(width=1200, height=1200)
 
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
@@ -31,7 +31,7 @@ def transform_data(data):
 async def load_data(url):
     data = await fetch_data(url)
     transformed_data = transform_data(data)
-    return transformed_data
+    return data
 
 def main():
     st.title("Candlestick Chart from API")
