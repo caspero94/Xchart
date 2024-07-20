@@ -67,7 +67,7 @@ datase = [
 # Usar los datos estáticos para verificar el gráfico
 seriesCandlestickChart = [{
     "type": 'Candlestick',
-    "data": datase,
+    "data": transformed_data,
     "options": {
         "upColor": COLOR_BULL,
         "downColor": COLOR_BEAR,
