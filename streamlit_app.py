@@ -45,12 +45,12 @@ def plot_chart(exchange ,symbol, timeframe):
 
     
     
-    with st.container(border=True):
+    #with st.container(border=True):
         # Mostrar gráfico
-        chart = StreamlitChart(height=1100)
-        chart.legend(visible=True)
-        chart.set(df)
-        chart.load()
+    chart = StreamlitChart(height=1000)
+    chart.legend(visible=True)
+    chart.set(df)
+    chart.load()
 
 # Interfaz de usuario
 col_exchange, col_symbol, col_timeframe = st.columns(3, vertical_alignment="bottom")
