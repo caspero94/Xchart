@@ -17,7 +17,7 @@ async def fetch_data(url):
 
 async def load_data(url):
     data = await fetch_data(url)
-    data['open_time'] = pd.to_datetime(data['open_time'], unit='ms')
+    data['open_time'] = await pd.to_datetime(data['open_time'], unit='ms')
     return data
 
 def main():
