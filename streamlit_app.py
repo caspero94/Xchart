@@ -52,7 +52,7 @@ def plot_chart(symbol, timeframe):
 
     df['open_time'] = pd.to_datetime(df['open_time'])
     df.drop(columns=['close_time', 'base_asset_volume','number_of_trades','taker_buy_volume','taker_buy_base_asset_volume'], inplace=True)
-    df.set_index('open_time', inplace=True)
+    #df.set_index('open_time', inplace=True)
     st.write(df)
 
     # Mostrar gráfico
