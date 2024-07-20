@@ -28,7 +28,7 @@ def transform_data(data):
             "high": float(entry["high"]),
             "low": float(entry["low"]),
             "close": float(entry["close"]),
-            "time": pd.to_datetime(entry["open_time"], unit='ms')  # Convert milliseconds to seconds
+            "time": datetime(entry["open_time"])  # Convert milliseconds to seconds
         }
         transformed.append(transformed_entry)
     return transformed
