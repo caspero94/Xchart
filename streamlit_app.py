@@ -28,18 +28,15 @@ def transform_data(data):
         transformed.append(transformed_entry)
     return transformed
 
-# URL de la API
 url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=500'
 
 def load_and_render_chart():
-    # Ejecutar el bucle de eventos asincrónicos
     data = asyncio.run(fetch_data(url))
     transformed_data = transform_data(data)
 
     # Verifica los datos transformados
-    st.write("Datos transformados:", transformed_data[:5])  # Muestra las primeras 5 entradas para depuración
+    st.write("Datos transformados:", json.dumps(transformed_data, indent=2))
 
-    # Configuración del gráfico
     chartOptions = {
         "width": 600,
         "height": 400,
@@ -95,12 +92,15 @@ def load_and_render_chart():
     st.subheader("Candlestick Chart with Watermark")
     
     # Renderizar el gráfico
-    renderLightweightCharts([
-        {
-            "chart": chartOptions,
-            "series": seriesCandlestickChart
-        }
-    ], 'candlestick')
+    try:
+        renderLightweightCharts([
+            {
+                "chart": chartOptions,
+                "series": seriesCandlestickChart
+            }
+        ], 'candlestick')
+    except Exception as e:
+        st.error(f"Error al renderizar el gráfico: {e}")
 
 # Ejecutar la carga y renderización
 st.write("Cargando datos...")
