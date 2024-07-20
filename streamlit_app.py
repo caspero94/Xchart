@@ -65,7 +65,7 @@ chartOptions = {
 # Usar datos estáticos para verificar el gráfico
 seriesCandlestickChart = [{
     "type": 'Candlestick',
-    "data": transformed_data,  # Intenta primero con datos transformados completos
+    "data": datase,  # Intenta primero con datos transformados completos
     "options": {
         "upColor": COLOR_BULL,
         "downColor": COLOR_BEAR,
