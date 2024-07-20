@@ -4,8 +4,8 @@ import aiohttp
 import asyncio
 from streamlit_lightweight_charts import renderLightweightCharts
 
-COLOR_BULL = 'rgba(38,166,154,0.9)'  # #26a69a
-COLOR_BEAR = 'rgba(239,83,80,0.9)'   # #ef5350
+COLOR_BULL = '#26a69a'  # color verde para velas alcistas
+COLOR_BEAR = '#ef5350'  # color rojo para velas bajistas
 
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
@@ -35,7 +35,7 @@ def load_and_render_chart():
     transformed_data = transform_data(data)
 
     # Verifica los datos transformados
-    st.write("Datos transformados:", json.dumps(transformed_data, indent=2))
+    st.write("Datos transformados:", json.dumps(transformed_data[:5], indent=2))
 
     chartOptions = {
         "width": 600,
@@ -75,19 +75,17 @@ def load_and_render_chart():
         }
     }
 
-    seriesCandlestickChart = [
-        {
-            "type": 'Candlestick',
-            "data": transformed_data,
-            "options": {
-                "upColor": COLOR_BULL,
-                "downColor": COLOR_BEAR,
-                "borderVisible": False,
-                "wickUpColor": COLOR_BULL,
-                "wickDownColor": COLOR_BEAR
-            }
+    seriesCandlestickChart = [{
+        "type": 'Candlestick',
+        "data": transformed_data,
+        "options": {
+            "upColor": COLOR_BULL,
+            "downColor": COLOR_BEAR,
+            "borderVisible": False,
+            "wickUpColor": COLOR_BULL,
+            "wickDownColor": COLOR_BEAR
         }
-    ]
+    }]
 
     st.subheader("Candlestick Chart with Watermark")
     
