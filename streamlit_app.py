@@ -38,8 +38,6 @@ def plot_chart(exchange ,symbol, timeframe):
     
 
     df['open_time'] = pd.to_datetime(df['open_time'], unit="ms")
-    #df.rename(columns={'open_time': 'date'}, inplace=True)
-    #df.drop(columns=['close_time', 'base_asset_volume','number_of_trades','taker_buy_volume','taker_buy_base_asset_volume'], inplace=True)
     df = df.iloc[::-1].reset_index(drop=True)
     df.set_index('open_time', inplace=True)
 
@@ -51,11 +49,11 @@ def plot_chart(exchange ,symbol, timeframe):
     chart.load()
 
 # Interfaz de usuario
-exchange = ["binance"]
+exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d"]
 selected_exchange = st.selectbox("Select Exchange", exchange)
 selected_symbol = st.selectbox("Select Ticker", symbols)
 selected_timeframe = st.selectbox("Select Timeframe", timeframes)
 
-plot_chart(selected_exchange,selected_symbol, selected_timeframe)
+plot_chart(selected_exchange.lower(),selected_symbol, selected_timeframe)
