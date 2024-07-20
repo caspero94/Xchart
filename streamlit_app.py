@@ -4,6 +4,10 @@ import aiohttp
 import asyncio
 from streamlit_lightweight_charts import renderLightweightCharts
 
+COLOR_BULL = 'rgba(38,166,154,0.9)'  # #26a69a
+COLOR_BEAR = 'rgba(239,83,80,0.9)'   # #ef5350
+
+# Función asincrónica para obtener los datos
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -28,35 +32,63 @@ def transform_data(data):
 # URL de la API
 url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=500'
 
-# Función para cargar datos y renderizar el gráfico
 def load_and_render_chart():
     data = asyncio.run(fetch_data(url))
     transformed_data = transform_data(data)
 
     chartOptions = {
+        "width": 600,
+        "height": 400,
         "layout": {
-            "textColor": 'black',
             "background": {
-                "type": 'solid',
+                "type": "solid",
                 "color": 'white'
+            },
+            "textColor": "black"
+        },
+        "grid": {
+            "vertLines": {
+                "color": "rgba(197, 203, 206, 0.5)"
+            },
+            "horzLines": {
+                "color": "rgba(197, 203, 206, 0.5)"
             }
+        },
+        "crosshair": {
+            "mode": 0
+        },
+        "priceScale": {
+            "borderColor": "rgba(197, 203, 206, 0.8)"
+        },
+        "timeScale": {
+            "borderColor": "rgba(197, 203, 206, 0.8)",
+            "barSpacing": 15
+        },
+        "watermark": {
+            "visible": True,
+            "fontSize": 48,
+            "horzAlign": 'center',
+            "vertAlign": 'center',
+            "color": 'rgba(171, 71, 188, 0.3)',
+            "text": 'ETHUSDT - 1m'
         }
     }
 
-    seriesCandlestickChart = [{
-        "type": 'Candlestick',
-        "data": transformed_data,
-        "options": {
-            "upColor": '#26a69a',
-            "downColor": '#ef5350',
-            "borderVisible": False,
-            "wickUpColor": '#26a69a',
-            "wickDownColor": '#ef5350'
+    seriesCandlestickChart = [
+        {
+            "type": 'Candlestick',
+            "data": transformed_data,
+            "options": {
+                "upColor": COLOR_BULL,
+                "downColor": COLOR_BEAR,
+                "borderVisible": False,
+                "wickUpColor": COLOR_BULL,
+                "wickDownColor": COLOR_BEAR
+            }
         }
-    }]
+    ]
 
     st.subheader("Candlestick Chart with Watermark")
-
     renderLightweightCharts([
         {
             "chart": chartOptions,
