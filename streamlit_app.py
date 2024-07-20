@@ -31,9 +31,18 @@ url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&
 
 data = asyncio.run(fetch_data(url))
 transformed_data = transform_data(data)
+for entry in transformed_data:
+    assert isinstance(entry['open'], (int, float))
+    assert isinstance(entry['high'], (int, float))
+    assert isinstance(entry['low'], (int, float))
+    assert isinstance(entry['close'], (int, float))
+    assert isinstance(entry['time'], int)
+    st.write(entry)  # Verifica que todos los valores son razonables
 
 st.write("Datos Transformados:")
 st.write(transformed_data)
+for entry in transformed_data:
+    st.write(f"Types: open={type(entry['open'])}, high={type(entry['high'])}, low={type(entry['low'])}, close={type(entry['close'])}, time={type(entry['time'])}")
 
 # Configuración del gráfico
 chartOptions = {
