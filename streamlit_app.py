@@ -59,11 +59,11 @@ exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d"]
 with col_exchange:
-    selected_exchange = st.selectbox(exchange)
+    selected_exchange = st.selectbox("Select Exchange",exchange,label_visibility="hidden")
 with col_symbol:
-    selected_symbol = st.selectbox(symbols)
+    selected_symbol = st.selectbox("Select Ticker",symbols,label_visibility="hidden")
 with col_timeframe:
-    selected_timeframe = st.selectbox(timeframes)
+    selected_timeframe = st.selectbox("Select Timeframe",timeframes,label_visibility="hidden")
 
 while True:
     plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe)
