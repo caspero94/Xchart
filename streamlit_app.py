@@ -11,7 +11,7 @@ API_URL = 'http://104.46.208.49:8000/api/klines/'
 
 # Configuración de Streamlit
 st.set_page_config(layout="wide")
-st.title("Candlestick Chart from API")
+#st.title("Candlestick Chart from API")
 
 # Obtener datos de la API
 async def fetch_data(exchange, symbol, timeframe, limit=1000):
@@ -45,9 +45,9 @@ def plot_chart(exchange ,symbol, timeframe):
 
     
     
-    with st.container(height=1000, border=True):
+    with st.container(border=True):
         # Mostrar gráfico
-        chart = StreamlitChart()
+        chart = StreamlitChart(height=1100)
         chart.legend(visible=True)
         chart.set(df)
         chart.load()
