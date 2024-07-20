@@ -53,6 +53,8 @@ def plot_chart(exchange ,symbol, timeframe):
         chart.load()
 
 # Interfaz de usuario
+selected_exchange, selected_symbol, selected_timeframe = st.columns(3, vertical_alignment="bottom")
+
 exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d"]
