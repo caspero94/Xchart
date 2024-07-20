@@ -24,7 +24,7 @@ def transform_data(data):
     transformed = []
     for entry in data:
         transformed_entry = {
-            "time": int(entry["open_time"] / 1000),
+            "open_time": int(entry["open_time"]),
             "open": float(entry["open"]),
             "high": float(entry["high"]),
             "low": float(entry["low"]),
@@ -48,6 +48,8 @@ def plot_chart(symbol, timeframe):
 
     # Convertir a DataFrame
     df = pd.DataFrame(data)
+    df['open_time'] = pd.to_datetime(data['open_time'], unit='ms')
+    df.set_index('open_time', inplace=True)
     
     # Mostrar gráfico
     chart = StreamlitChart(width=900, height=600)
