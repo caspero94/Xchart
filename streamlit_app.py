@@ -49,6 +49,7 @@ def plot_chart(exchange ,symbol, timeframe):
         # Mostrar gráfico
     chart = StreamlitChart(height=1000)
     chart.legend(visible=True)
+    chart.volume_config(0.2)
     chart.set(df)
     chart.load()
 
