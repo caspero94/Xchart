@@ -43,11 +43,13 @@ def plot_chart(exchange ,symbol, timeframe):
     df = df.iloc[::-1].reset_index(drop=True)
     df.set_index('open_time', inplace=True)
 
-    # Mostrar gráfico
-    chart = StreamlitChart(width=900, height=600)
-    chart.legend(visible=True)
-    chart.set(df)
+    
+    
     with st.container(height=1000, border=True):
+        # Mostrar gráfico
+        chart = StreamlitChart(width=900, height=600)
+        chart.legend(visible=True)
+        chart.set(df)
         chart.load()
 
 # Interfaz de usuario
