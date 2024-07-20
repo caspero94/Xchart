@@ -48,7 +48,7 @@ def plot_chart(symbol, timeframe):
 
     # Convertir a DataFrame
     df = pd.DataFrame(data)
-    df.set_index('open_time', inplace=True)  # Establecer 'open_time' como índice
+    #df.set_index('open_time', inplace=True)  # Establecer 'open_time' como índice
     
     # Mostrar gráfico
     chart = StreamlitChart(width=900, height=600)
