@@ -28,7 +28,7 @@ def transform_data(data):
         transformed.append(transformed_entry)
     return transformed
 
-url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=500'
+url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=10'
 
 
 data = asyncio.run(fetch_data(url))
