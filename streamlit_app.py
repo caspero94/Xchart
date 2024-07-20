@@ -4,6 +4,8 @@ import asyncio
 import streamlit as st
 from datetime import datetime
 from lightweight_charts.widgets import StreamlitChart
+import time
+
 # URL de la API
 API_URL = 'http://104.46.208.49:8000/api/klines/'
 
@@ -36,7 +38,6 @@ def plot_chart(exchange ,symbol, timeframe):
     # Convertir a DataFrame
     df = pd.DataFrame(data)
     
-
     df['open_time'] = pd.to_datetime(df['open_time'], unit="ms")
     df = df.iloc[::-1].reset_index(drop=True)
     df.set_index('open_time', inplace=True)
@@ -56,4 +57,9 @@ selected_exchange = st.selectbox("Select Exchange", exchange)
 selected_symbol = st.selectbox("Select Ticker", symbols)
 selected_timeframe = st.selectbox("Select Timeframe", timeframes)
 
-plot_chart(selected_exchange.lower(),selected_symbol, selected_timeframe)
+# Actualización del gráfico cada 10 segundos
+st.write("Updating every 10 seconds...")
+while True:
+    plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe)
+    time.sleep(10)  # Espera de 10 segundos antes de volver a ejecutar
+    st.experimental_rerun()  # Vuelve a ejecutar el script para refrescar el gráfico
