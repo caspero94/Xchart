@@ -47,8 +47,8 @@ def plot_chart(exchange ,symbol, timeframe):
     chart = StreamlitChart(width=900, height=600)
     chart.legend(visible=True)
     chart.set(df)
-    
-    chart.load()
+    with st.container(height=500, border=True):
+        chart.load()
 
 # Interfaz de usuario
 exchange = ["Binance"]
