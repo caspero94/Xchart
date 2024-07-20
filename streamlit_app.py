@@ -26,7 +26,7 @@ def transform_data(data):
     return transformed
 
 # URL de la API
-url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=5'
+url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=500'
 
 # Función para cargar datos y renderizar el gráfico
 def load_and_render_chart():
