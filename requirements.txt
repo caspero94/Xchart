@@ -1,4 +1,5 @@
 streamlit
-streamlit-lightweight-charts
+lightweight_charts
+pandas
 aiohttp
 asyncio

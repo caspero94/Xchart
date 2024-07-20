@@ -1,10 +1,11 @@
-import streamlit as st
+import pandas as pd
 import asyncio
 import aiohttp
-from streamlit_lightweight_charts import renderLightweightCharts
+import streamlit as st
+from lightweight_charts.widgets import StreamlitChart
 
-COLOR_BULL = '#26a69a'
-COLOR_BEAR = '#ef5350'
+# Configuración del gráfico
+chart = StreamlitChart(width=900, height=600)
 
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
@@ -18,65 +19,37 @@ def transform_data(data):
     transformed = []
     for entry in data:
         transformed_entry = {
-            "open": int(float(entry["open"])),  # Convertir a int
+            "open": float(entry["open"]),
             "high": float(entry["high"]),
             "low": float(entry["low"]),
             "close": float(entry["close"]),
-            "time": int(entry["open_time"] / 1000)
+            "time": int(entry["open_time"] / 1000)  # Convert milliseconds to seconds
         }
         transformed.append(transformed_entry)
     return transformed
 
-# Función asíncrona para cargar datos y renderizar el gráfico
-async def load_and_render_chart(url):
+async def load_data(url):
     data = await fetch_data(url)
     transformed_data = transform_data(data)
     return transformed_data
 
-# URL de la API
-url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=10'
-
-# Cargar datos y mostrar el gráfico
 def main():
-    st.title("Candlestick Chart")
+    st.title("Candlestick Chart from API")
+
+    url = 'http://104.46.208.49:8000/api/klines/binance?ticker=ETHUSDT&timeframe=1m&limit=10'
 
     # Mostrar un mensaje de carga mientras se obtienen los datos
     st.write("Cargando datos...")
 
-    # Ejecutar la función asíncrona
-    transformed_data = asyncio.run(load_and_render_chart(url))
+    # Cargar datos de forma asíncrona
+    transformed_data = asyncio.run(load_data(url))
 
-    # Configuración del gráfico
-    chartOptions = {
-        "layout": {
-            "textColor": 'black',
-            "background": {
-                "type": 'solid',
-                "color": 'white'
-            }
-        }
-    }
+    # Convertir los datos a un DataFrame de pandas
+    df = pd.DataFrame(transformed_data)
 
-    seriesCandlestickChart = [{
-        "type": 'Candlestick',
-        "data": transformed_data,
-        "options": {
-            "upColor": COLOR_BULL,
-            "downColor": COLOR_BEAR,
-            "borderVisible": False,
-            "wickUpColor": COLOR_BULL,
-            "wickDownColor": COLOR_BEAR
-        }
-    }]
-
-    st.subheader("Candlestick Chart with Transformed Data")
-
-    renderLightweightCharts([
-        {
-            "chart": chartOptions,
-            "series": seriesCandlestickChart
-        }
-    ], 'candlestick')
+    # Configurar y cargar el gráfico
+    chart.set(df)
+    chart.load()
 
 if __name__ == "__main__":
     main()
