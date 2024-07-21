@@ -53,6 +53,7 @@ def plot_chart(exchange, symbol, timeframe, timezone):
     chart = StreamlitChart(height=1000)
     chart.legend(visible=True)
     chart.volume_config(scale_margin_top=0.96)
+    chart.time_scale(right_offset=1)
     chart.set(df)
     chart.load()
 
