@@ -45,8 +45,10 @@ def plot_chart(exchange, symbol, timeframe, timezone):
 
     # Convertir la fecha a la zona horaria seleccionada
     df.index = df.index.tz_localize('UTC').tz_convert(timezone)
-    df.index = df.index.tz_localize(None)
     
+    # Ajustar a UTC para el gráfico
+    df.index = df.index.tz_localize(None)  # Remover la zona horaria para el gráfico
+
     # Mostrar gráfico
     chart = StreamlitChart(height=1000)
     chart.legend(visible=True)
@@ -54,20 +56,26 @@ def plot_chart(exchange, symbol, timeframe, timezone):
     chart.set(df)
     chart.load()
 
+    # Mostrar la zona horaria seleccionada
+    st.write(f"Datos ajustados a la zona horaria: {timezone}")
+
 # Interfaz de usuario
-col_exchange, col_symbol, col_timeframe, col_timezone = st.columns(4, vertical_alignment="bottom")
+col_exchange, col_symbol, col_timeframe, col_timezone = st.columns([2, 2, 6, 2], vertical_alignment="bottom")
 
 exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
-timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d","3d","1w"]
+timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w"]
 timezones = pytz.all_timezones  # Lista de todas las zonas horarias
 
 with col_exchange:
     selected_exchange = st.selectbox("Select Exchange", exchange, label_visibility="hidden")
+
 with col_symbol:
     selected_symbol = st.selectbox("Select Ticker", symbols, label_visibility="hidden")
+
 with col_timeframe:
-    selected_timeframe = st.selectbox("Select Timeframe", timeframes, label_visibility="hidden")
+    selected_timeframe = st.radio("Select Timeframe", timeframes, index=timeframes.index("1m"))
+
 with col_timezone:
     selected_timezone = st.selectbox("Select Timezone", timezones, label_visibility="hidden")
 
