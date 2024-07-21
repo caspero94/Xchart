@@ -56,9 +56,6 @@ def plot_chart(exchange, symbol, timeframe, timezone):
     chart.set(df)
     chart.load()
 
-    # Mostrar la zona horaria seleccionada
-    st.write(f"Datos ajustados a la zona horaria: {timezone}")
-
 # Interfaz de usuario
 col_exchange, col_symbol, col_timeframe, col_timezone = st.columns([1, 1, 7, 1], vertical_alignment="bottom")
 
