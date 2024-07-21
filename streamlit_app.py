@@ -60,7 +60,7 @@ def plot_chart(exchange, symbol, timeframe, timezone):
     st.write(f"Datos ajustados a la zona horaria: {timezone}")
 
 # Interfaz de usuario
-col_exchange, col_symbol, col_timeframe, col_timezone = st.columns([2, 2, 6, 2], vertical_alignment="bottom")
+col_exchange, col_symbol, col_timeframe, col_timezone = st.columns([1, 1, 7, 1], vertical_alignment="bottom")
 
 exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
