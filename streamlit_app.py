@@ -13,6 +13,23 @@ API_URL = 'http://104.46.208.49:8000/api/klines/'
 # Configuración de Streamlit
 st.set_page_config(layout="wide")
 
+timezones = [
+    'UTC',
+    'America/New_York',  # EST/EDT
+    'America/Chicago',   # CST/CDT
+    'America/Denver',    # MST/MDT
+    'America/Los_Angeles',  # PST/PDT
+    'Europe/London',     # GMT/BST
+    'Europe/Paris',      # CET/CEST
+    'Europe/Berlin',     # CET/CEST
+    'Europe/Madrid',     # CET/CEST
+    'Asia/Tokyo',        # JST
+    'Asia/Kolkata',      # IST
+    'Asia/Shanghai',     # CST
+    'Australia/Sydney',  # AEDT/AEST
+]
+
+
 # Obtener datos de la API
 async def fetch_data(exchange, symbol, timeframe, limit=1000):
     url = f"{API_URL}{exchange}?ticker={symbol}&timeframe={timeframe}&limit={limit}"
@@ -66,7 +83,7 @@ symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w"]
 type_candle = ["Velas","Línea"]
 indicators = ["MACD","MA","MEDIA MOVIL"]
-timezones = pytz.common_timezones  # Lista de todas las zonas horarias
+#timezones = pytz.common_timezones  # Lista de todas las zonas horarias
 
 
 with col_exchange:
@@ -82,7 +99,7 @@ with col_candle:
     selected_candle = st.selectbox("Select Candle", type_candle, label_visibility="collapsed")
 
 with col_indicators:
-    selected_indicators = st.selectbox("Select Indicators", indicators, index=2, label_visibility="collapsed")
+    selected_indicators = st.selectbox("Select Indicators", indicators, label_visibility="collapsed")
 
 with col_timezone:
     selected_timezone = st.selectbox("Select Timezone", timezones, label_visibility="collapsed")
