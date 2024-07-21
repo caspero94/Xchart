@@ -57,7 +57,7 @@ def plot_chart(exchange, symbol, timeframe, timezone):
     chart.load()
 
 # Interfaz de usuario
-col_exchange, col_symbol, col_timeframe, col_candle, col_indicators, col_timezone = st.columns([1, 1, 4, 1, 2, 1], vertical_alignment="bottom")
+col_exchange, col_symbol, col_timeframe, col_candle, col_indicators, col_timezone = st.columns([1, 1, 3, 1, 1, 1], vertical_alignment="bottom")
 
 exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
