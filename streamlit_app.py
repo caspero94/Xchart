@@ -3,6 +3,7 @@ import aiohttp
 import asyncio
 import streamlit as st
 from datetime import datetime
+import pytz
 from lightweight_charts.widgets import StreamlitChart
 import time
 
@@ -11,7 +12,6 @@ API_URL = 'http://104.46.208.49:8000/api/klines/'
 
 # Configuración de Streamlit
 st.set_page_config(layout="wide")
-#st.title("Candlestick Chart from API")
 
 # Obtener datos de la API
 async def fetch_data(exchange, symbol, timeframe, limit=1000):
@@ -30,7 +30,7 @@ def get_data(exchange, symbol, timeframe):
     return data
 
 # Configuración del gráfico
-def plot_chart(exchange ,symbol, timeframe):
+def plot_chart(exchange, symbol, timeframe, timezone):
     data = get_data(exchange, symbol, timeframe)
     if not data:
         st.write(f"No data available for {symbol} with timeframe {timeframe}.")
@@ -43,10 +43,10 @@ def plot_chart(exchange ,symbol, timeframe):
     df = df.iloc[::-1].reset_index(drop=True)
     df.set_index('open_time', inplace=True)
 
+    # Convertir la fecha a la zona horaria seleccionada
+    df.index = df.index.tz_localize('UTC').tz_convert(timezone)
     
-    
-    #with st.container(border=True):
-        # Mostrar gráfico
+    # Mostrar gráfico
     chart = StreamlitChart(height=1000)
     chart.legend(visible=True)
     chart.volume_config(scale_margin_top=0.96)
@@ -54,19 +54,23 @@ def plot_chart(exchange ,symbol, timeframe):
     chart.load()
 
 # Interfaz de usuario
-col_exchange, col_symbol, col_timeframe = st.columns(3, vertical_alignment="bottom")
+col_exchange, col_symbol, col_timeframe, col_timezone = st.columns(4, vertical_alignment="bottom")
 
 exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d","3d","1w"]
+timezones = pytz.all_timezones  # Lista de todas las zonas horarias
+
 with col_exchange:
-    selected_exchange = st.selectbox("Select Exchange",exchange,label_visibility="hidden")
+    selected_exchange = st.selectbox("Select Exchange", exchange, label_visibility="hidden")
 with col_symbol:
-    selected_symbol = st.selectbox("Select Ticker",symbols,label_visibility="hidden")
+    selected_symbol = st.selectbox("Select Ticker", symbols, label_visibility="hidden")
 with col_timeframe:
-    selected_timeframe = st.selectbox("Select Timeframe",timeframes,label_visibility="hidden")
+    selected_timeframe = st.selectbox("Select Timeframe", timeframes, label_visibility="hidden")
+with col_timezone:
+    selected_timezone = st.selectbox("Select Timezone", timezones, label_visibility="hidden")
 
 while True:
-    plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe)
-    time.sleep(30)  # Espera de 10 segundos antes de volver a ejecutar
+    plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe, selected_timezone)
+    time.sleep(30)  # Espera de 30 segundos antes de volver a ejecutar
     st.rerun()  # Vuelve a ejecutar el script para refrescar el gráfico
