@@ -75,7 +75,7 @@ with col_timeframe:
     selected_timeframe = st.radio("Select Timeframe", timeframes, index=timeframes.index("1m"),horizontal=True, label_visibility="collapsed")
 
 with col_indicators:
-    selected_timeframe = st.selectbox("Select Indicators", indicators, label_visibility="collapsed")
+    selected_indicators = st.selectbox("Select Indicators", indicators, label_visibility="collapsed")
 
 with col_timezone:
     selected_timezone = st.selectbox("Select Timezone", timezones, label_visibility="collapsed")
