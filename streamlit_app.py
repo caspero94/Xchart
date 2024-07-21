@@ -50,7 +50,7 @@ def plot_chart(exchange, symbol, timeframe, timezone):
     df.index = df.index.tz_localize(None)  # Remover la zona horaria para el gráfico
 
     # Mostrar gráfico
-    chart = StreamlitChart(height=1000)
+    chart = StreamlitChart(height=1080)
     chart.legend(visible=True)
     chart.volume_config(scale_margin_top=0.96)
     chart.time_scale(right_offset=10)
