@@ -57,13 +57,15 @@ def plot_chart(exchange, symbol, timeframe, timezone):
     chart.load()
 
 # Interfaz de usuario
-col_exchange, col_symbol, col_timeframe, col_indicators, col_timezone = st.columns([1, 1, 6, 2, 1], vertical_alignment="bottom")
+col_exchange, col_symbol, col_timeframe, col_candle, col_indicators, col_timezone = st.columns([1, 1, 1, 5, 2, 1], vertical_alignment="bottom")
 
 exchange = ["Binance"]
 symbols = ["BTCUSDT", "ETHUSDT"]  # Ajusta según tus tickers
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w"]
-timezones = pytz.all_timezones  # Lista de todas las zonas horarias
+type_candle = ["Velas","Línea"]
 indicators = ["MACD","MA","MEDIA MOVIL"]
+timezones = pytz.all_timezones  # Lista de todas las zonas horarias
+
 
 with col_exchange:
     selected_exchange = st.selectbox("Select Exchange", exchange, label_visibility="collapsed")
@@ -73,6 +75,9 @@ with col_symbol:
 
 with col_timeframe:
     selected_timeframe = st.radio("Select Timeframe", timeframes, index=timeframes.index("1m"),horizontal=True, label_visibility="collapsed")
+
+with col_candle:
+    selected_candle = st.selectbox("Select Candle", type_candle, label_visibility="collapsed")
 
 with col_indicators:
     selected_indicators = st.selectbox("Select Indicators", indicators, label_visibility="collapsed")
