@@ -82,7 +82,7 @@ with col_candle:
     selected_candle = st.selectbox("Select Candle", type_candle, label_visibility="collapsed")
 
 with col_indicators:
-    selected_indicators = st.selectbox("Select Indicators", indicators, index="UTC", label_visibility="collapsed")
+    selected_indicators = st.selectbox("Select Indicators", indicators, index=10, label_visibility="collapsed")
 
 with col_timezone:
     selected_timezone = st.selectbox("Select Timezone", timezones, label_visibility="collapsed")
