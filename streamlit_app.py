@@ -45,6 +45,7 @@ def plot_chart(exchange, symbol, timeframe, timezone):
 
     # Convertir la fecha a la zona horaria seleccionada
     df.index = df.index.tz_localize('UTC').tz_convert(timezone)
+    st.write(df)
     
     # Mostrar gráfico
     chart = StreamlitChart(height=1000)
