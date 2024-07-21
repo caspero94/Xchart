@@ -74,7 +74,7 @@ with col_symbol:
     selected_symbol = st.selectbox("Select Ticker", symbols, label_visibility="hidden")
 
 with col_timeframe:
-    selected_timeframe = st.radio("Select Timeframe", timeframes, index=timeframes.index("1m"))
+    selected_timeframe = st.radio("Select Timeframe", timeframes, index=timeframes.index("1m"),horizontal=True)
 
 with col_timezone:
     selected_timezone = st.selectbox("Select Timezone", timezones, label_visibility="hidden")
