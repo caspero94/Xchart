@@ -54,7 +54,8 @@ def plot_chart(exchange, symbol, timeframe, timezone):
     chart.legend(visible=True)
     chart.volume_config(scale_margin_top=0.96)
     chart.time_scale(right_offset=10)
-    chart.set(df)
+    
+    chart.line(df)
     chart.load()
 
 # Interfaz de usuario
