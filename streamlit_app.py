@@ -68,16 +68,16 @@ timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h
 timezones = pytz.all_timezones  # Lista de todas las zonas horarias
 
 with col_exchange:
-    selected_exchange = st.selectbox("Select Exchange", exchange, label_visibility="hidden")
+    selected_exchange = st.selectbox("Select Exchange", exchange, label_visibility="collapsed")
 
 with col_symbol:
-    selected_symbol = st.selectbox("Select Ticker", symbols, label_visibility="hidden")
+    selected_symbol = st.selectbox("Select Ticker", symbols, label_visibility="collapsed")
 
 with col_timeframe:
-    selected_timeframe = st.radio("Select Timeframe", timeframes, index=timeframes.index("1m"),horizontal=True)
+    selected_timeframe = st.radio("Select Timeframe", timeframes, index=timeframes.index("1m"),horizontal=True, label_visibility="collapsed")
 
 with col_timezone:
-    selected_timezone = st.selectbox("Select Timezone", timezones, label_visibility="hidden")
+    selected_timezone = st.selectbox("Select Timezone", timezones, label_visibility="collapsed")
 
 while True:
     plot_chart(selected_exchange.lower(), selected_symbol, selected_timeframe, selected_timezone)
