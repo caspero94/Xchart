@@ -31,7 +31,7 @@ timezones = [
 
 
 # Obtener datos de la API
-async def fetch_data(exchange, symbol, timeframe, limit=1000):
+async def fetch_data(exchange, symbol, timeframe, limit=8000):
     url = f"{API_URL}{exchange}?ticker={symbol}&timeframe={timeframe}&limit={limit}"
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
