@@ -79,7 +79,7 @@ def plot_chart(exchange, symbol, timeframe, timezone):
 col_exchange, col_symbol, col_timeframe, col_candle, col_indicators, col_timezone = st.columns([1, 1, 5, 1, 1, 1], vertical_alignment="bottom")
 
 exchange = ["Binance"]
-symbols = ["BTCUSDT", "ETHUSDT","BNBUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","ADAUSDT","AVAXUSDT","TRXUSDT","SHIBUSDT", "DOTUSDT", "LINKUSDT", "BCHUSDT", "NEARUSDT", "LTCUSDT", "MATICUSDT", "PEPEUSDT","UNIUSDT","ICPUSDT","ETCUSDT","APTUSDT","FETUSDT","XLMUSDT"]
+symbols = ["BTCUSDT", "ETHUSDT","BNBUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","ADAUSDT","AVAXUSDT","TRXUSDT","SHIBUSDT", "DOTUSDT", "LINKUSDT", "BCHUSDT", "NEARUSDT", "LTCUSDT", "MATICUSDT", "PEPEUSDT","UNIUSDT","ICPUSDT","ETCUSDT","APTUSDT","FETUSDT","XLMUSDT","ARBUSDT","RNDRUSDT","STXUSDT","FILUSDT","WIFUSDT","MKRUSDT","HBARUSDT"]
 timeframes = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w"]
 type_candle = ["Velas","Línea"]
 indicators = ["MACD","MA","MEDIA MOVIL"]
