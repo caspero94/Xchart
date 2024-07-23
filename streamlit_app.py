@@ -8,7 +8,7 @@ from lightweight_charts.widgets import StreamlitChart
 import time
 
 # URL de la API
-API_URL = 'http://104.46.208.49:8000/api/klines/'
+API_URL = 'http://data-api.japaneast.cloudapp.azure.com:8000/api/klines/'
 
 # Configuración de Streamlit
 st.set_page_config(layout="wide")
